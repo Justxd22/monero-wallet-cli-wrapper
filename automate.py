@@ -2,8 +2,8 @@ import os, random
 import asyncio, subprocess
 
 
-height = "2875721"
-seed = "water lopped sayings hookup slug befit outbreak hence gourmet gambit eggs reruns assorted huge coffee unknown pause evicted zero obvious zesty army jellyfish jockey jellyfish"
+height = "2875721" #@param {type:"string"}
+seed = "water lopped sayings hookup slug befit outbreak hence gourmet gambit eggs reruns assorted huge coffee unknown pause evicted zero obvious zesty army jellyfish jockey jellyfish" #@param {type:"string"}
 
 # adjust your cli path
 path = "./"
