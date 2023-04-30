@@ -123,6 +123,37 @@ async def run():
     print("out")
     pro2.stdin.write(b'\n') #enter empty password
     await pro2.stdin.drain()
+    while 1:
+        await asyncio.sleep(0.2)
+        print("iff")
+        o  = await pro2.stdout.readline()
+        print("ii")
+        if "Spending from" in str(o):
+            print(o)
+            break
+        elif len(str(o)) == 0:
+            print(o)
+            break
+        else: 
+            print(o)
+            continue
+    print("out2")
+    pro2.stdin.write(b'Y\n') #yes
+    await pro2.stdin.drain()
+    while 1:
+        await asyncio.sleep(0.2)
+        print("ifff")
+        o  = await pro2.stdout.readline()
+        print("ii")
+        if "Is this okay?" in str(o):
+            print(o)
+            break
+        elif len(str(o)) == 0:
+            print(o)
+            break
+        else: 
+            print(o)
+            continue
     print(await pro2.stdout.readline())
     print(await pro2.stdout.readline())
     print(await pro2.stdout.readline())
