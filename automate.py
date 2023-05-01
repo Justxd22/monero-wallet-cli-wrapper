@@ -2,8 +2,8 @@ import os, random
 import asyncio, subprocess
 
 
-height = "2875721"
-seed = "water lopped sayings hookup slug befit outbreak hence gourmet gambit eggs reruns assorted huge coffee unknown pause evicted zero obvious zesty army jellyfish jockey jellyfish"
+height = "2875721" #@param {type:"string"}
+seed = "water lopped sayings hookup slug befit outbreak hence gourmet gambit eggs reruns assorted huge coffee unknown pause evicted zero obvious zesty army jellyfish jockey jellyfish" #@param {type:"string"}
 
 # adjust your cli path
 path = "./"
@@ -18,7 +18,7 @@ async def run():
     pro = await asyncio.create_subprocess_exec(cmd, '--daemon-address', 'xmr-node.cakewallet.com:18081', '--restore-from-seed', '--electrum-seed', seed, '--restore-height', height, '--generate-new-wallet', waln, '--password', '', stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     while 1:
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(0.1)
         print("if")
         o  = await pro.stdout.readline()
         print("ii")
@@ -38,9 +38,9 @@ async def run():
     print(await pro.stdout.readline())
     print(await pro.stdout.readline())
     while 1: # detect block sync
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(0.1)
         print("is")
-        o  = await asyncio.wait_for(pro.stdout.readline(), timeout=2.0)
+        o  = await asyncio.wait_for(pro.stdout.readline(), timeout=1.0)
         print("ii")
         if "Starting refresh..." in str(o):
             break
@@ -54,17 +54,17 @@ async def run():
             continue
 
     while 1: ## wait for refreshing to finish!
-        await asyncio.sleep(0.4)
+        await asyncio.sleep(0.1)
         print("it")
         try:
-          o = await asyncio.wait_for(pro.stdout.readline(), timeout=2.0)
+          o = await asyncio.wait_for(pro.stdout.readline(), timeout=1.0)
           print("3i")
           if len(o) == 0: raise("err")
           print(o)
           if "Starting refresh..." in str(o): continue
           if "\\rRefresh done," in str(o): break
         except: # press enter untill refresh is done
-          await asyncio.sleep(2)
+          await asyncio.sleep(1)
           print("tryingENTER")
           pro.stdin.write(b'\n')
           await pro.stdin.drain()
@@ -77,7 +77,7 @@ async def run():
     print(await pro.stdout.readline())
     print(await pro.stdout.readline())
     while 1:
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(0.1)
         print("i")
         o  = await pro.stdout.readline()
         print("ii")
@@ -106,7 +106,7 @@ async def run():
     # replace your cmd in the next line
     pro2 = await asyncio.create_subprocess_exec(cmd, '--daemon-address', 'xmr-node.cakewallet.com:18081', '--wallet',  waln, '--password', '', "--command", "sweep_all", "433CbZXrdTBQzESkZReqQp1TKmj7MfUBXbc8FkG1jpVTBFxY9MCk1RXPWSG6CnCbqW7eiMTEGFgbHXj3rx3PxZadPgFD3DX", stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     while 1:
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(0.1)
         print("if")
         o  = await pro2.stdout.readline()
         print("ii")
@@ -123,6 +123,37 @@ async def run():
     print("out")
     pro2.stdin.write(b'\n') #enter empty password
     await pro2.stdin.drain()
+    while 1:
+        await asyncio.sleep(0.1)
+        print("iff")
+        o  = await pro2.stdout.readline()
+        print("ii")
+        if "Spending from" in str(o):
+            print(o)
+            break
+        elif len(str(o)) == 0:
+            print(o)
+            break
+        else: 
+            print(o)
+            continue
+    print("out2")
+    pro2.stdin.write(b'Y\n') #yes
+    await pro2.stdin.drain()
+    while 1:
+        await asyncio.sleep(0.1)
+        print("ifff")
+        o  = await pro2.stdout.readline()
+        print("ii")
+        if "Is this okay?" in str(o):
+            print(o)
+            break
+        elif len(str(o)) == 0:
+            print(o)
+            break
+        else: 
+            print(o)
+            continue
     print(await pro2.stdout.readline())
     print(await pro2.stdout.readline())
     print(await pro2.stdout.readline())
